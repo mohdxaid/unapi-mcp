@@ -20,10 +20,10 @@ Even worse, basic network recorders just dump raw endpoints without telling you 
 
 **`UnAPI-MCP` goes far beyond simple network capture:**
 
-1. **🔗 Automatic Auth & Token Dependency Chain Tracer:** Automatically traces how a `sessionToken` or `csrfToken` returned in the JSON body of Request A (`$.sessionToken`) is injected into the `Authorization` or `x-csrf-token` header of Request B and C.
-2. **🔒 Shadow API Security & PII Auditor (`unapi-mcp audit`):** Scans every captured endpoint for unauthenticated state-mutations (`POST`/`DELETE`), plaintext email/PII leaks, credentials leaked in URL query strings, and wildcard CORS misconfigurations.
-3. **⚡ Instant Zero-Config Local Mock Server (`unapi-mcp mock`):** Spins up a local HTTP server (`http://127.0.0.1:4010`) that replays the exact synthesized routes and captured JSON payloads so you and your AI agent can build and test against any website's API **offline** without hitting production rate limits.
-4. **📦 Full Code & Spec Compiler (`unapi-mcp export`):** Generates standalone, zero-dependency **Python SDKs**, **TypeScript SDKs**, **OpenAPI 3.1 specs**, and native **Model Context Protocol (MCP)** tools.
+1. **Automatic Auth & Token Dependency Chain Tracer:** Automatically traces how a `sessionToken` or `csrfToken` returned in the JSON body of Request A (`$.sessionToken`) is injected into the `Authorization` or `x-csrf-token` header of Request B and C.
+2. **Shadow API Security & PII Auditor (`unapi-mcp audit`):** Scans every captured endpoint for unauthenticated state-mutations (`POST`/`DELETE`), plaintext email/PII leaks, credentials leaked in URL query strings, and wildcard CORS misconfigurations.
+3. **Instant Zero-Config Local Mock Server (`unapi-mcp mock`):** Spins up a local HTTP server (`http://127.0.0.1:4010`) that replays the exact synthesized routes and captured JSON payloads so you and your AI agent can build and test against any website's API **offline** without hitting production rate limits.
+4. **Full Code & Spec Compiler (`unapi-mcp export`):** Generates standalone, zero-dependency **Python SDKs**, **TypeScript SDKs**, **OpenAPI 3.1 specs**, and native **Model Context Protocol (MCP)** tools.
 
 ---
 
