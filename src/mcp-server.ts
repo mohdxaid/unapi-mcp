@@ -32,7 +32,7 @@ export async function startMcpServer(customCatalogPath?: string): Promise<void> 
   const server = new Server(
     {
       name: "unapi-mcp",
-      version: "0.2.0"
+      version: "0.3.0"
     },
     {
       capabilities: {

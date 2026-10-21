@@ -25,7 +25,7 @@ program
   .description(
     "Unwrap any website's hidden Shadow APIs into a typed SDK, OpenAPI 3.1 spec, Auth Dependency Chain, Security Audit, and Mock/MCP server."
   )
-  .version("0.2.0");
+  .version("0.3.0");
 
 program
   .command("capture [url]")

@@ -1,0 +1,16 @@
+{
+  "name": "unapi-mcp",
+  "version": "0.3.0",
+  "description": "Unwrap any website's hidden Shadow APIs into typed Python/TS SDKs, OpenAPI 3.1 specs, Auth Dependency Graphs, Security Audits, and Local Mock + MCP tools.",
+  "author": "mohdxaid",
+  "homepage": "https://github.com/mohdxaid/unapi-mcp",
+  "mcpServers": {
+    "unapi-mcp": {
+      "command": "npx",
+      "args": ["-y", "unapi-mcp", "mcp"]
+    }
+  },
+  "skills": [
+    "./skills/unapi-mcp/SKILL.md"
+  ]
+}

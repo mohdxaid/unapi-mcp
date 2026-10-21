@@ -1,0 +1,111 @@
+{
+  "siteName": "hackernews",
+  "origin": "https://hacker-news.firebaseio.com",
+  "capturedAt": "2026-10-21T12:00:00.000Z",
+  "endpoints": [
+    {
+      "id": "GET:https://hacker-news.firebaseio.com/v0/topstories.json",
+      "toolName": "get_v0_topstories_json",
+      "method": "GET",
+      "origin": "https://hacker-news.firebaseio.com",
+      "pathPattern": "/v0/topstories.json",
+      "sampleUrl": "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty",
+      "description": "GET /v0/topstories.json on hacker-news.firebaseio.com",
+      "pathParams": [],
+      "queryParams": {
+        "print": {
+          "type": "string",
+          "example": "pretty"
+        }
+      },
+      "requestHeaders": {
+        "accept": "application/json"
+      },
+      "auth": {
+        "type": "none",
+        "envVarName": "HACKERNEWS_AUTH"
+      },
+      "isGraphQL": false,
+      "responseSchema": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "example": 41892104
+        }
+      },
+      "sampleStatus": 200,
+      "sampleResponseBody": [
+        41892104,
+        41891982,
+        41891500
+      ]
+    },
+    {
+      "id": "GET:https://hacker-news.firebaseio.com/v0/item/{itemId}.json",
+      "toolName": "get_v0_item_by_itemid_json",
+      "method": "GET",
+      "origin": "https://hacker-news.firebaseio.com",
+      "pathPattern": "/v0/item/{itemId}.json",
+      "sampleUrl": "https://hacker-news.firebaseio.com/v0/item/41892104.json",
+      "description": "GET /v0/item/{itemId}.json on hacker-news.firebaseio.com",
+      "pathParams": [
+        "itemId"
+      ],
+      "queryParams": {},
+      "requestHeaders": {
+        "accept": "application/json"
+      },
+      "auth": {
+        "type": "none",
+        "envVarName": "HACKERNEWS_AUTH"
+      },
+      "isGraphQL": false,
+      "responseSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 41892104
+          },
+          "title": {
+            "type": "string",
+            "example": "Show HN: UnAPI-MCP \u2013 Unwrap Shadow APIs into MCP & SDKs"
+          },
+          "by": {
+            "type": "string",
+            "example": "mohdxaid"
+          },
+          "score": {
+            "type": "integer",
+            "example": 342
+          },
+          "url": {
+            "type": "string",
+            "example": "https://github.com/mohdxaid/unapi-mcp"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "by",
+          "score",
+          "url"
+        ]
+      },
+      "sampleStatus": 200,
+      "sampleResponseBody": {
+        "id": 41892104,
+        "title": "Show HN: UnAPI-MCP \u2013 Unwrap Shadow APIs into MCP & SDKs",
+        "by": "mohdxaid",
+        "score": 342,
+        "url": "https://github.com/mohdxaid/unapi-mcp"
+      }
+    }
+  ],
+  "tokenChain": [],
+  "securityFindings": [],
+  "authHints": {
+    "headers": {},
+    "cookies": []
+  }
+}

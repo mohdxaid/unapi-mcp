@@ -1,0 +1,63 @@
+{
+  "siteName": "github",
+  "origin": "https://api.github.com",
+  "capturedAt": "2026-10-21T12:00:00.000Z",
+  "endpoints": [
+    {
+      "id": "GET:https://api.github.com/repos/{owner}/{repo}",
+      "toolName": "get_repos_by_owner_by_repo",
+      "method": "GET",
+      "origin": "https://api.github.com",
+      "pathPattern": "/repos/{owner}/{repo}",
+      "sampleUrl": "https://api.github.com/repos/mohdxaid/unapi-mcp",
+      "description": "GET /repos/{owner}/{repo} on api.github.com",
+      "pathParams": [
+        "owner",
+        "repo"
+      ],
+      "queryParams": {},
+      "requestHeaders": {
+        "accept": "application/vnd.github+json"
+      },
+      "auth": {
+        "type": "none",
+        "envVarName": "GITHUB_AUTH"
+      },
+      "isGraphQL": false,
+      "responseSchema": {
+        "type": "object",
+        "properties": {
+          "full_name": {
+            "type": "string",
+            "example": "mohdxaid/unapi-mcp"
+          },
+          "stargazers_count": {
+            "type": "integer",
+            "example": 1250
+          },
+          "language": {
+            "type": "string",
+            "example": "TypeScript"
+          }
+        },
+        "required": [
+          "full_name",
+          "stargazers_count",
+          "language"
+        ]
+      },
+      "sampleStatus": 200,
+      "sampleResponseBody": {
+        "full_name": "mohdxaid/unapi-mcp",
+        "stargazers_count": 1250,
+        "language": "TypeScript"
+      }
+    }
+  ],
+  "tokenChain": [],
+  "securityFindings": [],
+  "authHints": {
+    "headers": {},
+    "cookies": []
+  }
+}

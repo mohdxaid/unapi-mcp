@@ -187,7 +187,6 @@ export function traceTokenDependencies(
     const ep = endpointByExchangeId.get(ex.id);
     if (!ep) continue;
 
-    // 1. Check if this request consumes any previously produced token
     for (const prod of producedValues) {
       if (prod.endpoint.id === ep.id) continue;
 
@@ -226,7 +225,6 @@ export function traceTokenDependencies(
       }
     }
 
-    // 2. Record any tokens/IDs produced in this exchange's JSON response
     if (ex.responseBody) {
       try {
         const parsed = JSON.parse(ex.responseBody);
@@ -266,7 +264,6 @@ export function auditEndpointSecurity(
     const ep = endpointByExchangeId.get(ex.id);
     if (!ep) continue;
 
-    // 1. Unauthenticated state-mutating endpoint
     if (["POST", "PUT", "DELETE", "PATCH"].includes(ep.method) && ep.auth.type === "none") {
       addFinding({
         severity: "HIGH",
@@ -277,7 +274,6 @@ export function auditEndpointSecurity(
       });
     }
 
-    // 2. Token leaked in URL query string
     try {
       const parsedUrl = new URL(ex.url);
       for (const [qk, qv] of parsedUrl.searchParams.entries()) {
@@ -298,7 +294,6 @@ export function auditEndpointSecurity(
       // Ignore URL parse error
     }
 
-    // 3. Wildcard CORS with credentials/auth
     if (
       ex.responseHeaders["access-control-allow-origin"] === "*" &&
       ep.auth.type !== "none"
@@ -312,7 +307,6 @@ export function auditEndpointSecurity(
       });
     }
 
-    // 4. PII or Sensitive Keys in Response Body
     if (ex.responseBody) {
       if (EMAIL_REGEX.test(ex.responseBody)) {
         addFinding({
