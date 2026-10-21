@@ -1,0 +1,47 @@
+{
+  "name": "unapi-mcp",
+  "version": "0.2.0",
+  "description": "Unwrap any website's hidden Shadow APIs into a typed Python/TypeScript SDK, OpenAPI 3.1 spec, Auth Dependency Chain, Security Audit, and Mock/MCP server.",
+  "type": "module",
+  "bin": {
+    "unapi-mcp": "dist/cli.js",
+    "unapi": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli.ts",
+    "start": "node dist/cli.js",
+    "mcp": "node dist/cli.js mcp"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "shadow-api",
+    "openapi",
+    "chrome-devtools-protocol",
+    "claude-code",
+    "cursor",
+    "opencode",
+    "sdk-generator",
+    "har",
+    "api-security",
+    "mock-server"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "commander": "^12.1.0",
+    "ws": "^8.18.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/ws": "^8.5.13",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
