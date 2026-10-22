@@ -32,8 +32,7 @@ Even worse, basic network recorders just dump raw endpoints without telling you 
 | Capability | Headless Browser MCPs | Basic API Recorders | `UnAPI-MCP` |
 | :--- | :--- | :--- | :--- |
 | **Execution Speed** | 35s – 90s per task | ~120ms | **~120ms (Native HTTP)** |
-| **Multi-Step Auth Token Chain Tracer** | No | No | **Yes (Traces JSON body $
-ightarrow$ Header handoffs)** |
+| **Multi-Step Auth Token Chain Tracer** | No | No | **Yes (Traces JSON body $ightarrow$ Header handoffs)** |
 | **Shadow API Security & PII Audit** | No | No | **Yes (`unapi-mcp audit <site>`)** |
 | **Offline Localhost Mock Server** | No | No | **Yes (`unapi-mcp mock <site>`)** |
 | **Typed Python / TS SDK + OpenAPI 3.1** | No | No | **Yes (`format python`, `ts`, `openapi`)** |
