@@ -25,7 +25,7 @@ Even worse, basic network recorders just dump raw endpoints without telling you 
 3. **Instant Zero-Config Local Mock Server (`unapi-mcp mock`):** Spins up a local HTTP server (`http://127.0.0.1:4010`) that replays the exact synthesized routes and captured JSON payloads so you and your AI agent can build and test against any website's API **offline** without hitting production rate limits.
 4. **Full Code & Spec Compiler (`unapi-mcp export`):** Generates standalone, zero-dependency **Python SDKs**, **TypeScript SDKs**, **OpenAPI 3.1 specs**, and native **Model Context Protocol (MCP)** tools.
 
----
+
 
 ## Quick Comparison
 
@@ -38,7 +38,7 @@ Even worse, basic network recorders just dump raw endpoints without telling you 
 | **Typed Python / TS SDK + OpenAPI 3.1** | No | No | **Yes (`format python`, `ts`, `openapi`)** |
 | **HAR File Import + Live Chrome CDP** | No | Partial | **Yes (`capture launch` & `import-har`)** |
 
----
+
 
 ## How it works
 
@@ -47,7 +47,6 @@ Even worse, basic network recorders just dump raw endpoints without telling you 
 - **Trace.** The synthesizer walks captured exchanges in chronological order. When a high-entropy token returned in an earlier JSON response body (for example, `$.sessionToken` or `$.csrfToken`) reappears inside a later request's `Authorization` or `x-csrf-token` header, `unapi-mcp` records the dependency link so you and your agent know which bootstrap endpoint feeds downstream calls.
 - **Call or replay.** In MCP mode (`unapi-mcp mcp`), each endpoint becomes a native tool executed with Node's `fetch`, injecting headers or environment credentials (`<SITE>_AUTH_TOKEN`, `<SITE>_COOKIE`) automatically. In mock mode (`unapi-mcp mock`), a local server emulates the remote API so you can test integrations offline without hitting production rate limits.
 
----
 
 ## What's included
 
@@ -88,6 +87,58 @@ npx unapi-mcp export acme-flights --format openapi
 
 ---
 
+## Architecture
+
+```text
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    1. Traffic Ingestion Layer                           │
+│  • Live Chrome DevTools WebSocket (127.0.0.1:9222)  [`src/recorder.ts`] │
+│  • Offline Browser HAR File Importer (`import-har`)                     │
+│  • Telemetry, Ad-Domain & Static Asset Noise Filter (95% reduction)     │
+└───────────────────────────────────┬─────────────────────────────────────┘
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│                  2. Synthesis & Intelligence Engine                     │
+│  • Dynamic Path Parameterizer (`/orders/8492` ➔ `/orders/{orderId}`)    │
+│  • Recursive JSON Schema Inferrer & GraphQL Operation Unwrapper         │
+│  • Multi-Step Auth Token Dependency Tracer (`traceTokenDependencies`)│
+│  • Shadow API Security & PII Auditor (`auditEndpointSecurity`)       │
+└───────────────────────────────────┬─────────────────────────────────────┘
+                                    ▼
+┌───────────────────┬─────────────────────────────────┬───────────────────┐
+│ 3A. Native MCP    │ 3B. Offline Local Mock Server   │ 3C. SDK Compilers │
+│ Stdio Server for  │ Replays routes & payloads on    │ • OpenAPI 3.1     │
+│ Claude / Cursor   │ `http://127.0.0.1:4010`         │ • TypeScript SDK  │
+│ (`mcp-server.ts`) │ (`src/mock-server.ts`)          │ • Python Client   │
+└───────────────────┴─────────────────────────────────┴───────────────────┘
+```
+
+## Repository layout
+
+- `.claude-plugin/` & `skills/unapi-mcp/` — Native Claude Code plugin manifest & agent skill definition.
+- `.github/workflows/` — Automated CI matrix testing Node 20, 22, and 24 across Ubuntu and macOS.
+- `bench/` — Latency & throughput benchmarks (`npm run bench`).
+- `docs/` — Deep-dive architecture and Shadow API Security Auditor documentation.
+- `examples/` - Sample generated TypeScript & Python SDK clients.
+- `sites/` — Pre-built API catalogs (`hackernews.json`, `github-public.json`).
+- `src/` — TypeScript source (`recorder.ts`, `synthesizer.ts`, `mock-server.ts`, `mcp-server.ts`, `cli.ts`).
+- `test/` — Automated test suite (`npm test`).
+
+## CLI reference
+
+```text
+unapi-mcp capture [url] [--launch] [--port 9222] [--duration 30] [--name <site>]
+unapi-mcp import-har <file.har> [--name <site>]
+unapi-mcp demo
+unapi-mcp list
+unapi-mcp audit <site>
+unapi-mcp mock <site> [--port 4010]
+unapi-mcp export <site> [--format openapi|ts|python] [--out <file>]
+unapi-mcp setup [--client claude|cursor]
+unapi-mcp doctor [--port 9222]
+unapi-mcp mcp [--catalog <file.json>]
+```
+
 ## Capture Any Live Website or `.har` Recording
 
 ```bash
@@ -98,8 +149,6 @@ npx unapi-mcp capture https://news.ycombinator.com --launch --duration 30 --name
 npx unapi-mcp import-har ./portal-recording.har --name my-portal
 ```
 
----
-
 ## Connect to Claude Code, Cursor, or OpenCode
 
 ```bash
@@ -107,7 +156,6 @@ npx unapi-mcp setup --client claude
 npx unapi-mcp setup --client cursor
 ```
 
----
 
 ## License
 
